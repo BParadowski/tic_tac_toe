@@ -10,25 +10,38 @@
 </head>
 <body>
     <div class="lobby">
-        <div class="lobby__title"></div>
-        <form action="#" class="lobby__form" method="get">
+        <div class="lobby__title">Tic-Tac-Toe</div>
+        <form id="new-game" action="#" class="lobby__form" method="get">
             <label for="player1-name" class="lobby__label">Player 1 name:</label>
             <input id="player1-name" type="text" class="lobby__input" required>
             <label for="player2-name" class="lobby__label">Player 2 name:</label>
             <input id="player2-name" type="text" class="lobby__input" required>
-            <button class="lobby__button" type="submit"></button>
         </form>
+        <button form="new-game" class="lobby__button" type="submit">Begin!</button>
     </div>
-    <div class="gameboard">
-        <div class="square" id="0"></div>
-        <div class="square" id="1"></div>
-        <div class="square" id="2"></div>
-        <div class="square" id="3"></div>
-        <div class="square" id="4"></div>
-        <div class="square" id="5"></div>
-        <div class="square" id="6"></div>
-        <div class="square" id="7"></div>
-        <div class="square" id="8"></div>
+    <div class="layout">
+        <div class="scoreboard">
+            <div id="player1-name-display" class="scoreboard__name"></div>
+            <div class="scoreboard__vs">VS</div>
+            <div id="player2-name-display" class="scoreboard__name"></div>
+            <div id="player1-score-display"class="scoreboard__score"></div>
+            <div id="player2-score-display" class="scoreboard__score"></div>
+        </div>
+        <div class="gameboard">
+            <div class="square" id="0"></div>
+            <div class="square" id="1"></div>
+            <div class="square" id="2"></div>
+            <div class="square" id="3"></div>
+            <div class="square" id="4"></div>
+            <div class="square" id="5"></div>
+            <div class="square" id="6"></div>
+            <div class="square" id="7"></div>
+            <div class="square" id="8"></div>
+        </div>
+        <div class="buttons">
+            <button class="new-round-button">New round</button>
+            <button class="new-game-button">New game</button>
+        </div>
     </div>
 </body>
 </html>
