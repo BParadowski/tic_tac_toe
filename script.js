@@ -23,30 +23,29 @@ const board = (function(){
     }
 
     const checkWinStatus = (player) => {
-        if (squares[0] === squares[1] === squares[2] === 1 ||
-             squares[3] === squares [4] === squares[5] === 1 ||
-              squares[6] === squares [7] === squares[8] === 1||
-               squares[0] === squares[4] === squares[8] === 1||
-                squares[2] === squares[4] === squares[6] === 1||
-                 squares[0] === squares[1] === squares[2] === 0 ||
-                  squares[3] === squares [4] === squares[5] === 0 ||
-                   squares[6] === squares [7] === squares[8] === 0||
-                    squares[0] === squares[4] === squares[8] === 0||
-                     squares[2] === squares[4] === squares[6] === 0){
-
-            winStatus = `${player.name} won!`;
+        if ((squares[0] === player.sign && squares[1] === player.sign && squares[2] === player.sign) ||
+            (squares[3] === player.sign && squares[4] === player.sign && squares[5] === player.sign) ||
+            (squares[6] === player.sign && squares[7] === player.sign && squares[8] === player.sign) ||
+            (squares[0] === player.sign && squares[3] === player.sign && squares[6] === player.sign) ||
+            (squares[1] === player.sign && squares[4] === player.sign && squares[7] === player.sign) ||
+            (squares[2] === player.sign && squares[5] === player.sign && squares[8] === player.sign) ||
+            (squares[0] === player.sign && squares[4] === player.sign && squares[8] === player.sign) ||
+            (squares[2] === player.sign && squares[4] === player.sign && squares[6] === player.sign)){
+            board.winStatus  =`${player.name} won!`;
+            console.log(winStatus);
         }
         else if (!(squares.includes('undefined'))){
-            winStatus = "It is a draw";
-        }
+            board.winStatus = "It's a draw";
+        };
     }
 
     const clear = () => {
         const domSquares = document.querySelectorAll(".square");
         domSquares.forEach(square => square.textContent = "");
-        squares.forEach(square => square = 'undefined');
+        for (let i = 0; i < squares.length; i++){
+            squares[i] = "undefined";
+        }
         winStatus = "";
-        console.log(squares)
     }
     return { update, clear, winStatus,};
 })();
@@ -61,8 +60,14 @@ const game = (player1, player2) => {
     function makeMove(e){
         if(board.update(this, currentPlayer)){
             currentPlayer = (currentPlayer === player1) ? player2 : player1;
+
         };
 }
 }
 
-game({name: "jeff",sign: 1}, {name: "Rob", sign: 0});
+const preGameLobby = function(){
+    let player1;
+    let player2;
+
+    game(player1, player2);
+}
