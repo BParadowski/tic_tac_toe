@@ -188,6 +188,7 @@ const game = (function() {
         displayNames();
         displayScores();
         highlightCurrentPlayer();
+        if (player1.isComputer && player2.isComputer) unbindSquares();
         gameLayout.classList.add('open');
         if (currentPlayer.isComputer){
             computerMove();
@@ -309,9 +310,7 @@ const ai = (function(){
 
     const produceMove = (player) => {
         evaluatedBoard = board.getCurrentBoard();
-        let playerAi = player;
-        console.log(playerAi);
-        let recommendedIndex = max(playerAi.sign);
+        let recommendedIndex = max(player.sign);
         return recommendedIndex[1]; 
         // max returns an array [ result of best move, index of best move]
     } 
