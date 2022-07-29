@@ -103,6 +103,9 @@ body {
 .lobby__computer-button.selected {
   background-color: rgb(144, 177, 206);
 }
+.lobby__computer-button.ai {
+  margin-left: 10px;
+}
 
 .layout {
   opacity: 0;
@@ -156,6 +159,10 @@ button:hover {
 }
 .scoreboard__name {
   font-size: 40px;
+  padding: 5px 10px;
+}
+.scoreboard__name.highlighted {
+  outline: 3px dashed rgb(144, 177, 206);
 }
 .scoreboard__score {
   font-size: 40px;

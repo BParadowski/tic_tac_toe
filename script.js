@@ -74,6 +74,7 @@ const game = (function() {
     let currentPlayer;
     let player1;
     let player2;
+    let roundNum = 1;
     const squares = document.querySelectorAll('.square');
     const newGameButton = document.querySelector('.new-game-button');
     const newRoundButton = document.querySelector('.new-round-button');
@@ -97,6 +98,7 @@ const game = (function() {
                 return undefined;
             }
             currentPlayer = (currentPlayer === player1) ? player2 : player1;
+            highlightCurrentPlayer();
             if (currentPlayer.isComputer){
                 computerMove();
             }
@@ -119,8 +121,11 @@ const game = (function() {
     }
    
     const newRound = () => {
+        roundNum++;
+        currentPlayer = (roundNum % 2) === 1 ? player1 : player2;
         board.clear();
         bindSquares();
+        highlightCurrentPlayer();
         gameMessage.classList.remove('open');
         if (currentPlayer.isComputer){
             computerMove();
@@ -163,13 +168,26 @@ const game = (function() {
         setTimeout(move, 500);
     }
 
+    const highlightCurrentPlayer = () => {
+        if (currentPlayer === player1){
+            player1name.classList.add('highlighted');
+            player2name.classList.remove('highlighted');
+        }
+        if (currentPlayer === player2){
+            player2name.classList.add('highlighted');
+            player1name.classList.remove('highlighted');
+        }
+    }
+
     const init = (p1, p2) => {
         player1 = p1;
         player2 = p2;
         currentPlayer = player1;
+        roundNum = 1;
         bindSquares();
         displayNames();
         displayScores();
+        highlightCurrentPlayer();
         gameLayout.classList.add('open');
         if (currentPlayer.isComputer){
             computerMove();
@@ -185,19 +203,22 @@ const game = (function() {
 const preGameLobby = (function(){
 
     let cpStatus1 = false;
+    let aiStatus1 = false;
     let cpStatus2 = false;
+    let aiStatus2 = false;
     const name1 = document.getElementById("player1-name");
     const name2 = document.getElementById("player2-name");
     const newGameButton = document.querySelector('.lobby__button');
     const lobbyPopup = document.querySelector('.lobby');
-    const compBtn1 = document.getElementById('comp-buttton-1')
-    const compBtn2 = document.getElementById('comp-buttton-2')
-
+    const compBtn1 = document.getElementById('comp-buttton-1');
+    const compBtn2 = document.getElementById('comp-buttton-2');
+    const aiToggle1 = document.getElementById('ai1');
+    const aiToggle2 = document.getElementById('ai2');
     
     const newGame = (e) => {
         e.preventDefault();
-        let player1 = player(name1.value, 1, 0, cpStatus1);
-        let player2 = player(name2.value, 0, 0, cpStatus2, true);
+        let player1 = player(name1.value, 1, 0, cpStatus1, aiStatus1);
+        let player2 = player(name2.value, 0, 0, cpStatus2, aiStatus2);
         game.init(player1, player2);
         lobbyPopup.classList.toggle('open');
     }
@@ -213,10 +234,14 @@ const preGameLobby = (function(){
             name2.value = 'Computer 2';
         }
         else{
-            name1.value =  name1.value === "" ? "Computer" : "";
+            name1.value =  cpStatus1 ? "Computer" : "";
         }
         if (cpStatus2 && !cpStatus1 && name2.value  !== 'Computer'){
             name2.value = 'Computer';
+        }
+        if (!cpStatus1){
+            aiStatus1 = false;
+            aiToggle1.classList.remove('selected');
         }
     }
 
@@ -229,15 +254,39 @@ const preGameLobby = (function(){
             name2.value = 'Computer 2';
         }
         else{
-            name2.value =  name2.value === "" ? "Computer" : "";
+            name2.value =  cpStatus2 ? "Computer" : "";
         }
         if (cpStatus1 && !cpStatus2 && name1.value  !== 'Computer'){
             name1.value = 'Computer';
+        }
+
+        if (!cpStatus2){
+            aiStatus2 = false;
+            aiToggle2.classList.remove('selected');
         }
     }
 
     compBtn1.addEventListener('click', setComputer1);
     compBtn2.addEventListener('click', setComputer2);
+
+    const toggleAi1 = () => {
+       aiStatus1 = aiStatus1 ? false : true;
+       aiToggle1.classList.toggle('selected');
+       if (!cpStatus1){
+        setComputer1();
+       }
+    }
+
+    const toggleAi2 = () => {
+        aiStatus2 = aiStatus2 ? false : true;
+        aiToggle2.classList.toggle('selected');
+        if (!cpStatus2){
+            setComputer2();
+           }
+     }
+
+    aiToggle1.addEventListener('click',toggleAi1);
+    aiToggle2.addEventListener('click',toggleAi2);
 
     const newLobby = () => {
         lobbyPopup.classList.toggle('open');

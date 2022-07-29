@@ -112,6 +112,10 @@ body{
         &.selected{
             background-color: rgb(144, 177, 206);
         }
+
+        &.ai{
+            margin-left: 10px;
+        }
     }
 }
 
@@ -172,6 +176,11 @@ button{
 
     &__name{
         font-size: 40px;
+        padding: 5px 10px;
+
+        &.highlighted{
+            outline: 3px dashed rgb(144, 177, 206);
+        }
     }
 
     &__score{
