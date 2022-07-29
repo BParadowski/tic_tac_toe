@@ -12,10 +12,14 @@
     <div class="lobby">
         <div class="lobby__title">Tic-Tac-Toe</div>
         <form id="new-game" action="#" class="lobby__form" method="get">
-            <label for="player1-name" class="lobby__label">Player 1 name:</label>
-            <input id="player1-name" type="text" class="lobby__input" required>
-            <label for="player2-name" class="lobby__label">Player 2 name:</label>
-            <input id="player2-name" type="text" class="lobby__input" required>
+            <label for="player1-name" class="lobby__label">Player 1 name:
+                <button type="button" id="comp-buttton-1"class="lobby__computer-button">Computer</button>
+            </label>
+            <input pattern="/\S+/" id="player1-name" type="text" class="lobby__input" required>
+            <label for="player2-name" class="lobby__label">Player 2 name:
+                <button type="button" id="comp-buttton-2" class="lobby__computer-button">Computer</button>
+            </label>
+            <input pattern="/\S+/" id="player2-name" type="text" class="lobby__input" required>
         </form>
         <button form="new-game" class="lobby__button" type="submit">Begin!</button>
     </div>
@@ -37,6 +41,7 @@
             <div class="square" id="6"></div>
             <div class="square" id="7"></div>
             <div class="square" id="8"></div>
+            <div class="message"></div>
         </div>
         <div class="buttons">
             <button class="new-round-button">New round</button>
